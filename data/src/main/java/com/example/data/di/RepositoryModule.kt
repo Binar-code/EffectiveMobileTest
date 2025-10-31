@@ -6,6 +6,7 @@ import com.example.data.network.repository.NetworkRepository
 import com.example.domain.repository.ItemRepository
 import com.example.domain.usecase.ObserveUseCase
 import com.example.domain.usecase.RefreshUseCase
+import com.example.domain.usecase.UpdateCacheUseCase
 import org.koin.dsl.module
 
 val RepositoryModule = module {
@@ -34,5 +35,9 @@ val RepositoryModule = module {
 
     factory<RefreshUseCase> {
         RefreshUseCase(get())
+    }
+
+    factory<UpdateCacheUseCase> {
+        UpdateCacheUseCase(get())
     }
 }
