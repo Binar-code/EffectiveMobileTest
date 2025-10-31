@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CourseDao {
     @Query("SELECT * FROM course")
-    fun getCourses(): Flow<List<LocalCourseDto>>
+    fun getCourses(): Flow<List<CourseEntity>>
 
     @Upsert
     suspend fun upsertCourses(data: List<CourseEntity>)

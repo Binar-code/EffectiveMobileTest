@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 class LocalRepository(
     private val dao: CourseDao
 ) {
-    fun observe(): Flow<List<LocalCourseDto>> = dao.getCourses()
+    fun observe(): Flow<List<CourseEntity>> = dao.getCourses()
 
     suspend fun updateLocal(data: List<CourseEntity>) = dao.upsertCourses(data)
 }

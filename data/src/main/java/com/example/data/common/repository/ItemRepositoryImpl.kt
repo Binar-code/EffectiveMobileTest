@@ -3,6 +3,7 @@ package com.example.data.common.repository
 import com.example.data.common.mappers.toDomain
 import com.example.data.local.mappers.toDto
 import com.example.data.local.mappers.toEntity
+import com.example.data.local.mappers.toLocalDto
 import com.example.data.local.repository.LocalRepository
 import com.example.data.network.repository.NetworkRepository
 import com.example.domain.model.Course
@@ -17,7 +18,7 @@ class ItemRepositoryImpl(
 ): ItemRepository {
     override fun observe(): Flow<List<Course>> {
         val res = local.observe()
-        return res.map { list -> list.map { item -> item.toDomain() } }
+        return res.map { list -> list.map { item -> item.toLocalDto().toDomain() } }
     }
 
     override suspend fun refresh(): Result<List<Course>> {
