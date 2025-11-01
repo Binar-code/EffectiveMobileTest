@@ -46,7 +46,6 @@ coil = { group = "io.coil-kt", name = "coil", version.ref = "coil" }
 androidx-navigation-fragment = { group = "androidx.navigation", name = "navigation-fragment", version.ref = "navigationFragment" }
 androidx-navigation-ui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "navigationUi" }
 androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview", version.ref = "recyclerview" }
-insert-koin-koin-android = { group = "io.insert-koin", name = "koin-android", version.ref = "koinAndroidVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
