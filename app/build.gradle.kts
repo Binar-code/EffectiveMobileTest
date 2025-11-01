@@ -50,7 +50,13 @@ dependencies {
     implementation(libs.androidx.fragment)
     implementation(project(":domain"))
     implementation(project(":data"))
+    implementation(libs.kotlinx.coroutines)
+    implementation(libs.coil)
+    implementation(libs.androidx.navigation.fragment)
+    implementation(libs.androidx.navigation.ui)
+    implementation(libs.androidx.recyclerview)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+    implementation("com.google.android.material:material:1.12.0")
 }

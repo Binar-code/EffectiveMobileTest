@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="md_theme_dark_onBackground">#FFF2F2F3</color>
+    <color name="md_theme_dark_background">#FF000000</color>
+    <color name="md_theme_dark_surface">#FF32333A</color>
+    <color name="md_theme_dark_onSurface">#FF919295</color>
+    <color name="md_theme_dark_primary">#FF12B956</color>
+    <color name="md_theme_dark_onPrimary">#FFF2F2F3</color>
+    <color name="vk_blue">#FF0077FF</color>
+    <color name="ok_orange">#FFFF7700</color>
 </resources>

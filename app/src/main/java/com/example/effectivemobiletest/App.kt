@@ -4,6 +4,7 @@ import android.app.Application
 import com.example.data.di.DatabaseModule
 import com.example.data.di.RepositoryModule
 import com.example.data.di.RetrofitModule
+import com.example.effectivemobiletest.di.ViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -18,7 +19,8 @@ class App(): Application() {
             modules(
                 RetrofitModule,
                 DatabaseModule,
-                RepositoryModule
+                RepositoryModule,
+                ViewModelModule
             )
         }
     }
