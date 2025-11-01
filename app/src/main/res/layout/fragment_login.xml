@@ -10,24 +10,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/textView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginTop="130dp"
+            android:layout_marginBottom="34dp"
             android:text="@string/login"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="28sp" />
+            android:textSize="30sp" />
 
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/email_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
             android:text="@string/email"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -38,22 +40,29 @@
             app:boxCornerRadiusTopEnd="30dp"
             app:boxCornerRadiusTopStart="30dp"
             app:boxStrokeWidth="0dp"
-            app:placeholderTextColor="@color/md_theme_dark_onSurface">
+            app:placeholderTextColor="@color/md_theme_dark_onSurface"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailEdit"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
+                android:layout_height="52dp"
                 android:layout_marginBottom="8dp"
-                android:hint="@string/email_input_placeholder" />
+                android:hint="@string/email_input_placeholder"
+                android:textColor="@color/md_theme_dark_onBackground"
+                android:inputType="textNoSuggestions|textVisiblePassword"
+                android:maxLines="1" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/password_input"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:text="@string/password"
             android:textColor="?attr/colorOnBackground"
-            android:textSize="16sp" />
+            android:textSize="18sp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -64,24 +73,32 @@
             app:boxCornerRadiusTopEnd="30dp"
             app:boxCornerRadiusTopStart="30dp"
             app:boxStrokeWidth="0dp"
-            app:placeholderTextColor="@color/md_theme_dark_onSurface">
+            app:placeholderTextColor="@color/md_theme_dark_onSurface"
+            app:hintEnabled="false">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordEdit"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:hint="@string/password_input_placeholder" />
+                android:layout_height="52dp"
+                android:hint="@string/password_input_placeholder"
+                android:textColor="@color/md_theme_dark_onBackground"
+                android:inputType="textPassword"
+                android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="26dp"
+            android:enabled="false"
             android:text="@string/login" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="8dp"
             android:orientation="horizontal">
 
             <TextView
@@ -107,6 +124,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="4dp"
+            android:layout_marginBottom="32dp"
             android:text="@string/forgot_password"
             android:textColor="?attr/colorPrimary" />
 
@@ -114,30 +132,34 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_marginVertical="2dp"
+            android:layout_marginTop="20dp"
             android:background="@color/md_theme_dark_onSurface" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="32dp"
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/imageButton2"
+                android:id="@+id/vk_button"
                 android:layout_width="156dp"
-                android:layout_height="40dp"
-                android:layout_marginEnd="16dp"
+                android:layout_height="48dp"
+                android:layout_marginEnd="12dp"
                 android:layout_weight="1"
-                android:background="@color/md_theme_dark_primary"
+                android:background="@drawable/round_shape"
+                android:backgroundTint="@color/vk_blue"
                 android:scaleType="fitCenter"
                 android:src="@drawable/vk_logo" />
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/ok_button"
                 android:layout_width="156dp"
-                android:layout_height="40dp"
+                android:layout_height="48dp"
                 android:layout_weight="1"
-                android:background="@color/md_theme_dark_primary"
+                android:background="@drawable/round_shape"
+                android:backgroundTint="@color/ok_orange"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_ok" />
 
