@@ -10,8 +10,12 @@
         <item name="colorPrimary">@color/md_theme_dark_primary</item>
         <item name="colorOnPrimary">@color/md_theme_dark_onPrimary</item>
 
+        <item name="colorOnSurfaceVariant">@color/md_theme_dark_onSurfaceVariant</item>
+
         <item name="isMaterial3DynamicColorApplied">false</item>
-        <item name="android:forceDarkAllowed">false</item>
+        <item name="android:forceDarkAllowed" tools:targetApi="29">false</item>
+
+        <item name="android:fontFamily">@font/roboto</item>
     </style>
 
     <style name="Theme.EffectiveMobileTest" parent="Base.Theme.EffectiveMobileTest" />

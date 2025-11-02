@@ -8,4 +8,6 @@
     <string name="no_account">Нет аккаунта?</string>
     <string name="sign_up">Регистрация</string>
     <string name="forgot_password">Забыл пароль</string>
+    <string name="vk_auth">Авторизация через вк</string>
+    <string name="ok_auth">Авторизация через одноклассники</string>
 </resources>
