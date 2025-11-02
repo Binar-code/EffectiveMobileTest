@@ -6,11 +6,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.R
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import com.example.effectivemobiletest.databinding.FragmentLoginBinding
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -54,6 +56,10 @@ class LoginFragment : Fragment() {
         }
         binding.passwordEdit.doOnTextChanged { text, _, _, _ ->
             vm.onPasswordChange(text?.toString().orEmpty())
+        }
+
+        binding.loginButton.setOnClickListener {
+            findNavController().navigate(com.example.effectivemobiletest.R.id.homeFragment)
         }
     }
 
