@@ -12,18 +12,17 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/ivCover"
+            android:id="@+id/course_image"
             android:layout_width="match_parent"
             android:layout_height="114dp"
             android:scaleType="centerCrop"
             android:src="@drawable/placeholder_course_image"
-            app:contentGravity="top"
             app:layout_constraintDimensionRatio="16:9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/Course.TopRoundedImage" />
+            app:shapeAppearanceOverlay="@style/Course_TopRoundedImage" />
 
         <ImageButton
             android:id="@+id/btnFav"
@@ -34,8 +33,8 @@
             android:src="@drawable/ic_fav_card"
             android:scaleType="centerInside"
             android:contentDescription="@string/favorite"
-            app:layout_constraintTop_toTopOf="@id/ivCover"
-            app:layout_constraintEnd_toEndOf="@id/ivCover"
+            app:layout_constraintTop_toTopOf="@id/course_image"
+            app:layout_constraintEnd_toEndOf="@id/course_image"
             android:layout_margin="12dp" />
 
         <LinearLayout
@@ -43,8 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="@id/ivCover"
-            app:layout_constraintStart_toStartOf="@id/ivCover"
+            app:layout_constraintBottom_toBottomOf="@id/course_image"
+            app:layout_constraintStart_toStartOf="@id/course_image"
             android:layout_margin="12dp"
             android:gravity="center_vertical"
             android:baselineAligned="false">
@@ -90,7 +89,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ivCover"
+            app:layout_constraintTop_toBottomOf="@id/course_image"
             app:layout_constraintVertical_bias="0.0">
 
 
