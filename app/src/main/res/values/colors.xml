@@ -12,4 +12,5 @@
     <color name="vk_blue">#FF2683ED</color>
     <color name="ok_orange">#FFFF7700</color>
     <color name="bottom_stroke_color">#FF4D555E</color>
+    <color name="surface_transparent_30">#4D24252A</color>
 </resources>
