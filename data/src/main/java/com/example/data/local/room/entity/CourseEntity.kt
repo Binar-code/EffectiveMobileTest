@@ -14,7 +14,7 @@ data class CourseEntity(
     @ColumnInfo(name = "public_id") val publicId: Int,
     val title: String,
     val text: String,
-    val price: Int,
+    val price: String,
     val rate: Float,
     @ColumnInfo(name = "start_date") val startDate: String,
     @ColumnInfo(name = "has_like") val hasLike: Boolean,

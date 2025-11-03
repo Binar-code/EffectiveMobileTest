@@ -81,6 +81,7 @@
                 android:layout_gravity="end"
                 android:layout_marginEnd="4dp"
                 android:clickable="true"
+                android:focusable="true"
                 android:fontFamily="@font/semibold_roboto"
                 android:text="@string/by_date"
                 android:textColor="@color/md_theme_dark_primary"
@@ -89,6 +90,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:focusable="true"
                 android:src="@drawable/ic_sort"
                 android:clickable="true"/>
 
@@ -96,6 +98,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:id="@+id/feed"/>
     </LinearLayout>
 </FrameLayout>

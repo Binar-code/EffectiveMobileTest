@@ -5,7 +5,7 @@ data class LocalCourseDto(
     val publicId: Int,
     val title: String,
     val text: String,
-    val price: Int,
+    val price: String,
     val rate: Float,
     val startDate: String,
     val hasLike: Boolean,

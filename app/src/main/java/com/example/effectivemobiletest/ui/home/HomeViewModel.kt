@@ -40,7 +40,7 @@ class HomeViewModel(
         refreshNow()
     }
 
-    fun refreshNow() {
+    private fun refreshNow() {
         if (isRefreshing) return
         isRefreshing = true
 
@@ -66,5 +66,9 @@ class HomeViewModel(
                 _uiState.update { it.copy(isLoading = false) }
             }
         }
+    }
+
+    fun onFavClick(itemId: Int) {
+
     }
 }
