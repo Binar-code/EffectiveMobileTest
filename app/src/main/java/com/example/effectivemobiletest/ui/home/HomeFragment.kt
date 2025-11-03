@@ -19,7 +19,10 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
-    // TODO: не забыть блюр в чипах
+    // TODO: ликвид гласс
+    // TODO: лоадер в первую загрузку
+    // TODO: pull to refresh
+    // TODO: функционал избранного
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!

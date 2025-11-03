@@ -9,6 +9,7 @@ fun Course.toCourseUi(): CourseUi = CourseUi(
     description = text,
     price = "$price ₽",
     rating = rate.toString(),
-    date = startDate.toString(),
+    date = startDate.toStringDate(),
     isFavorite = hasLike
 )
+
