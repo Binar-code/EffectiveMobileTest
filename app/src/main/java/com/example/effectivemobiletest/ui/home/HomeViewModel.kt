@@ -18,7 +18,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class HomeViewModel(
-    private val observe: ObserveUseCase,
+    observe: ObserveUseCase,
     private val refresh: RefreshUseCase,
     private val updateCache: UpdateCacheUseCase,
     private val updateFav: UpdateFavoriteUseCase

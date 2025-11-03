@@ -1,13 +1,11 @@
 package com.example.effectivemobiletest.ui.home
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import androidx.core.view.doOnLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -15,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.effectivemobiletest.R
 import com.example.effectivemobiletest.databinding.FragmentHomeBinding
 import com.example.effectivemobiletest.ui.home.feed.FeedItem
 import com.example.effectivemobiletest.ui.home.feed.HomeAdapter
