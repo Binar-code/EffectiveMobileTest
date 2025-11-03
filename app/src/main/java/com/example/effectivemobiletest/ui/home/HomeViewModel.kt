@@ -88,4 +88,26 @@ class HomeViewModel(
             updateFav(itemId, !isFav)
         }
     }
+
+    fun setMode(mode: ScreenMode) {
+        _uiState.update { it.copy(mode = mode) }
+    }
+
+    fun sortByDate() {
+        if (!uiState.value.sortDesc) {
+            _uiState.update { state ->
+                state.copy(
+                    items = state.items.sortedByDescending { it.startDate },
+                    sortDesc = true
+                )
+            }
+        } else {
+            _uiState.update { state ->
+                state.copy(
+                    items = state.items.sortedBy { it.startDate },
+                    sortDesc = false
+                )
+            }
+        }
+    }
 }

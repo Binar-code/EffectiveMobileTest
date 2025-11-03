@@ -16,8 +16,17 @@
         android:name="com.example.effectivemobiletest.ui.home.HomeFragment">
         <argument
             android:name="mode"
-            app:argType="string"
+            app:argType="com.example.effectivemobiletest.ui.home.ScreenMode"
             android:defaultValue="HOME" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteFragment"
+        android:name="com.example.effectivemobiletest.ui.home.HomeFragment">
+        <argument
+            android:name="mode"
+            app:argType="com.example.effectivemobiletest.ui.home.ScreenMode"
+            android:defaultValue="FAVORITE" />
     </fragment>
 
     <fragment

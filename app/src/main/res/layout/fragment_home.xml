@@ -14,6 +14,7 @@
         android:padding="16dp">
 
         <LinearLayout
+            android:id="@+id/top_bar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -38,7 +39,7 @@
                 android:layout_gravity="center_vertical">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/emailEdit"
+                    android:id="@+id/search_bar"
                     android:layout_width="match_parent"
                     android:layout_height="56dp"
                     android:hint="@string/search_courses"
@@ -62,27 +63,32 @@
         </LinearLayout>
         
         <TextView
+            android:id="@+id/fav_label"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="22sp"
             android:text="@string/favorite"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            android:textColor="@color/md_theme_dark_onBackground"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/roboto"/>
 
         <LinearLayout
+           android:id="@+id/filter"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
+            android:focusable="true"
             android:gravity="bottom"
             android:visibility="visible"
-            android:layout_marginBottom="16dp">
+            android:layout_marginBottom="16dp"
+            android:clickable="true">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_marginEnd="4dp"
-                android:clickable="true"
-                android:focusable="true"
                 android:fontFamily="@font/semibold_roboto"
                 android:text="@string/by_date"
                 android:textColor="@color/md_theme_dark_primary"
@@ -92,8 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:focusable="true"
-                android:src="@drawable/ic_sort"
-                android:clickable="true"/>
+                android:src="@drawable/ic_sort" />
 
         </LinearLayout>
 

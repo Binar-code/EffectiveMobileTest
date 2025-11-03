@@ -7,6 +7,9 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        plugins {
+            id("androidx.navigation.safeargs.kotlin") version "2.9.5"
+        }
         mavenCentral()
         gradlePluginPortal()
     }
