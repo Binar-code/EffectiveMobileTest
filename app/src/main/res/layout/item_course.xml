@@ -28,7 +28,7 @@
             android:id="@+id/btnFav"
             android:layout_width="28dp"
             android:layout_height="28dp"
-            android:background="@drawable/icon_background"
+            android:background="@drawable/ic_background_transparent_30"
             android:padding="8dp"
             android:src="@drawable/ic_fav_card"
             android:scaleType="centerInside"

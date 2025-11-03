@@ -5,7 +5,7 @@ import com.example.data.local.room.entity.CourseEntity
 
 fun LocalCourseDto.toEntity(): CourseEntity = CourseEntity(
     id = 0,
-    publicId = id,
+    publicId = publicId,
     title = title,
     text = text,
     price = price,

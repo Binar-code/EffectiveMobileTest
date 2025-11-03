@@ -13,6 +13,9 @@
     <string name="home">Главная</string>
     <string name="favorite">Избранное</string>
     <string name="account">Аккаунт</string>
+    <string name="search_courses">Search courses...</string>
+    <string name="filter">Фильтр</string>
+    <string name="by_date">По дате добавления</string>
     <string name="placeholder_string">Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

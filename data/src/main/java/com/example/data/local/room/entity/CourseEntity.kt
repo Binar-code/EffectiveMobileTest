@@ -2,9 +2,13 @@ package com.example.data.local.room.entity
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.Index
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "course")
+@Entity(
+    tableName = "course",
+    indices = [Index(value = ["public_id"], unique = true)]
+)
 data class CourseEntity(
     @PrimaryKey(autoGenerate = true) val id: Int,
     @ColumnInfo(name = "public_id") val publicId: Int,
