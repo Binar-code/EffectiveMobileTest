@@ -11,4 +11,7 @@ class LocalRepository(
     fun observe(): Flow<List<CourseEntity>> = dao.getCourses()
 
     suspend fun updateLocal(data: List<CourseEntity>) = dao.upsertCourses(data)
+
+    suspend fun updateFavorite(publicId: Int, isFavorite: Boolean) =
+        dao.updateFavorite(publicId, isFavorite)
 }

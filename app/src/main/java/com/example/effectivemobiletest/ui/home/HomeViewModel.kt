@@ -6,6 +6,8 @@ import com.example.domain.result.Result
 import com.example.domain.usecase.ObserveUseCase
 import com.example.domain.usecase.RefreshUseCase
 import com.example.domain.usecase.UpdateCacheUseCase
+import com.example.domain.usecase.UpdateFavoriteUseCase
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
@@ -18,7 +20,8 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val observe: ObserveUseCase,
     private val refresh: RefreshUseCase,
-    private val updateCache: UpdateCacheUseCase
+    private val updateCache: UpdateCacheUseCase,
+    private val updateFav: UpdateFavoriteUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUiState())
@@ -69,6 +72,20 @@ class HomeViewModel(
     }
 
     fun onFavClick(itemId: Int) {
+        var isFav = false
+        _uiState.update { state ->
+            val newList = state.items.map { item ->
+                if (item.id == itemId) {
+                    isFav = item.hasLike
+                    item.copy(hasLike = !item.hasLike)
+                }
+                else item
+            }
+            state.copy(items = newList)
+        }
 
+        viewModelScope.launch(Dispatchers.IO) {
+            updateFav(itemId, !isFav)
+        }
     }
 }

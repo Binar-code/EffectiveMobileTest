@@ -19,7 +19,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
-    // TODO: ликвид гласс
     // TODO: лоадер в первую загрузку
     // TODO: pull to refresh
     // TODO: функционал избранного
@@ -29,7 +28,9 @@ class HomeFragment : Fragment() {
     private val vm: HomeViewModel by viewModel()
     private val adapter by lazy {
         HomeAdapter(
-            onFavClick = { item -> vm.onFavClick(item.id) }
+            onFavClick = { item ->
+                vm.onFavClick(item.id)
+            }
         )
     }
 
