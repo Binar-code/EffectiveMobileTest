@@ -18,13 +18,13 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+@Suppress("TooGenericExceptionCaught")
 class HomeViewModel(
     observe: ObserveUseCase,
     private val refresh: RefreshUseCase,
     private val updateCache: UpdateCacheUseCase,
-    private val updateFav: UpdateFavoriteUseCase
+    private val updateFav: UpdateFavoriteUseCase,
 ) : ViewModel() {
-
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
 
@@ -82,12 +82,15 @@ class HomeViewModel(
     fun onFavClick(itemId: Int) {
         var wasFav = false
         _uiState.update { state ->
-            val newList = state.items.map { item ->
-                if (item.id == itemId) {
-                    wasFav = item.hasLike
-                    item.copy(hasLike = !item.hasLike)
-                } else item
-            }
+            val newList =
+                state.items.map { item ->
+                    if (item.id == itemId) {
+                        wasFav = item.hasLike
+                        item.copy(hasLike = !item.hasLike)
+                    } else {
+                        item
+                    }
+                }
             state.copy(items = newList)
         }
         viewModelScope.launch(Dispatchers.IO) {
@@ -104,12 +107,12 @@ class HomeViewModel(
             if (!state.sortDesc) {
                 state.copy(
                     items = state.items.sortedByDescending { it.startDate },
-                    sortDesc = true
+                    sortDesc = true,
                 )
             } else {
                 state.copy(
                     items = state.items.sortedBy { it.startDate },
-                    sortDesc = false
+                    sortDesc = false,
                 )
             }
         }

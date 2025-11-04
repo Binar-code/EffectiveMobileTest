@@ -4,10 +4,6 @@ import com.example.data.common.repository.ItemRepositoryImpl
 import com.example.data.local.repository.LocalRepository
 import com.example.data.network.repository.NetworkRepository
 import com.example.domain.repository.ItemRepository
-import com.example.domain.usecase.ObserveUseCase
-import com.example.domain.usecase.RefreshUseCase
-import com.example.domain.usecase.UpdateCacheUseCase
-import com.example.domain.usecase.UpdateFavoriteUseCase
 import org.koin.dsl.module
 
 val RepositoryModule =

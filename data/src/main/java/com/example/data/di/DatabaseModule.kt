@@ -10,7 +10,8 @@ val DatabaseModule = module {
     single<Database> {
         Room.databaseBuilder(
             androidContext(),
-            Database::class.java, "db"
+            Database::class.java,
+            "db"
         ).build()
     }
 

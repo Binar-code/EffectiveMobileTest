@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
-class LoginViewModel: ViewModel() {
+class LoginViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(LoginUiState())
     val uiState: StateFlow<LoginUiState> = _uiState.asStateFlow()
 
@@ -23,9 +23,8 @@ class LoginViewModel: ViewModel() {
     private fun validate() {
         val s = _uiState.value
         val emailValid = s.email.trim().isNotEmpty() &&
-                Patterns.EMAIL_ADDRESS.matcher(s.email.trim()).matches()
+            Patterns.EMAIL_ADDRESS.matcher(s.email.trim()).matches()
         val passValid = s.password.trim().isNotEmpty()
         _uiState.value = s.copy(loginButtonEnabled = emailValid && passValid)
     }
 }
-

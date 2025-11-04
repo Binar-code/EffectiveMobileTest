@@ -6,6 +6,6 @@ import com.example.data.local.room.dao.CourseDao
 import com.example.data.local.room.entity.CourseEntity
 
 @Database(entities = [CourseEntity::class], version = 1)
-abstract class Database: RoomDatabase() {
+abstract class Database : RoomDatabase() {
     abstract fun courseDao(): CourseDao
 }

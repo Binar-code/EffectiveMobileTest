@@ -12,5 +12,4 @@ data class CourseUi(
     val rating: String,
     val date: String,
     val isFavorite: Boolean
-): FeedItem
-
+) : FeedItem

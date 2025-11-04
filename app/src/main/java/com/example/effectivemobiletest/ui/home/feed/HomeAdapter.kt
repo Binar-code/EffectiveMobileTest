@@ -27,18 +27,24 @@ class HomeAdapter(
         delegates.onBindViewHolder(currentList, position, holder)
 
     override fun onBindViewHolder(
-        holder: RecyclerView.ViewHolder, position: Int, payloads: MutableList<Any>
+        holder: RecyclerView.ViewHolder,
+        position: Int,
+        payloads: MutableList<Any>
     ) = delegates.onBindViewHolder(currentList, position, holder, payloads)
 
     private object Diff : DiffUtil.ItemCallback<FeedItem>() {
         override fun areItemsTheSame(a: FeedItem, b: FeedItem) =
-            a.id== b.id && a::class == b::class
+            a.id == b.id && a::class == b::class
 
         override fun areContentsTheSame(a: FeedItem, b: FeedItem) = a == b
 
         override fun getChangePayload(oldItem: FeedItem, newItem: FeedItem): Any? =
             if (oldItem is CourseUi && newItem is CourseUi &&
                 oldItem.isFavorite != newItem.isFavorite
-            ) PAYLOAD_FAV else null
+            ) {
+                PAYLOAD_FAV
+            } else {
+                null
+            }
     }
 }

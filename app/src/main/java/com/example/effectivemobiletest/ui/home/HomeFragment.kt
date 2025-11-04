@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.effectivemobiletest.databinding.FragmentHomeBinding
 import com.example.effectivemobiletest.ui.home.feed.FeedItem
 import com.example.effectivemobiletest.ui.home.feed.HomeAdapter
-import com.example.effectivemobiletest.ui.home.feed.toCourseUi
+import com.example.effectivemobiletest.ui.home.feed.mappers.toCourseUi
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,20 +29,24 @@ class HomeFragment : Fragment() {
         HomeAdapter(
             onFavClick = { item ->
                 vm.onFavClick(item.id)
-            }
+            },
         )
     }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View = FragmentHomeBinding
-        .inflate(inflater, container, false)
-        .also { _binding = it }
-        .root
+        savedInstanceState: Bundle?,
+    ): View =
+        FragmentHomeBinding
+            .inflate(inflater, container, false)
+            .also { _binding = it }
+            .root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?,
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         when (args.mode) {
@@ -98,8 +102,11 @@ class HomeFragment : Fragment() {
 
                     binding.feed.suppressLayout(true)
                     adapter.submitList(newList) {
-                        if (wasAtTop) lm.scrollToPositionWithOffset(0, binding.feed.paddingTop)
-                        else lm.scrollToPositionWithOffset(firstIdx, firstViewTop)
+                        if (wasAtTop) {
+                            lm.scrollToPositionWithOffset(0, binding.feed.paddingTop)
+                        } else {
+                            lm.scrollToPositionWithOffset(firstIdx, firstViewTop)
+                        }
                         binding.feed.suppressLayout(false)
                     }
 
@@ -119,11 +126,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun decorate(state: HomeUiState): List<FeedItem> {
-        val source = if (state.mode == ScreenMode.FAVORITE) {
-            state.items.filter { it.hasLike }
-        } else {
-            state.items
-        }
+        val source =
+            if (state.mode == ScreenMode.FAVORITE) {
+                state.items.filter { it.hasLike }
+            } else {
+                state.items
+            }
         return source.map { it.toCourseUi() }
     }
 

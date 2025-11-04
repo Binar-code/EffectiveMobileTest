@@ -1,5 +1,7 @@
 package com.example.data.common.repository
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.data.common.mappers.toDomain
 import com.example.data.local.mappers.toDto
 import com.example.data.local.mappers.toEntity
@@ -16,11 +18,13 @@ class ItemRepositoryImpl(
     private val local: LocalRepository,
     private val network: NetworkRepository,
 ) : ItemRepository {
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun observe(): Flow<List<Course>> {
         val res = local.observe()
         return res.map { list -> list.map { item -> item.toLocalDto().toDomain() } }
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     override suspend fun refresh(): Result<List<Course>> {
         return when (val res = network.getCourses()) {
             is Result.Success -> {

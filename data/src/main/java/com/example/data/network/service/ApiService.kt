@@ -1,7 +1,6 @@
 package com.example.data.network.service
 
 import com.example.data.network.dto.CoursesResponse
-import com.example.data.network.dto.NetworkCourseDto
 import retrofit2.http.GET
 
 interface ApiService {

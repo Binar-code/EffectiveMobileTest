@@ -26,6 +26,7 @@ blurview = "version-2.0.3"
 adapterdelegates4KotlinDsl = "4.3.2"
 adapterdelegates4KotlinDslViewbinding = "4.3.2"
 swiperefreshlayout = "1.1.0"
+detekt = "1.23.7"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -53,9 +54,13 @@ blurview = { group = "com.github.Dimezis", name = "BlurView", version.ref = "blu
 adapterdelegates4-kotlin-dsl = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates4KotlinDsl" }
 adapterdelegates4-kotlin-dsl-viewbinding = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterdelegates4KotlinDslViewbinding" }
 androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
+detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "detekt" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+detekt-plugin = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }
+
+
 
