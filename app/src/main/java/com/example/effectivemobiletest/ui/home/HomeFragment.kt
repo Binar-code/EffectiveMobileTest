@@ -23,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     // TODO: лоадер в первую загрузку
-    // TODO: заглушка для пустого избранного
     private val args: HomeFragmentArgs by navArgs()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -81,20 +80,26 @@ class HomeFragment : Fragment() {
                 vm.uiState.collect { state ->
                     val lm = binding.feed.layoutManager as LinearLayoutManager
 
-                    val firstIdx = lm.findFirstVisibleItemPosition()
-                    val firstViewTop = (lm.findViewByPosition(firstIdx)?.top ?: 0)
-                    val wasAtTop = firstIdx == 0 && firstViewTop >= (binding.feed.paddingTop)
-
                     val newList = decorate(state)
 
-                    binding.feed.suppressLayout(true)
+                    val isEmptyUi = newList.isEmpty()
+                    binding.emptyList.visibility = if (isEmptyUi) VISIBLE else GONE
+                    binding.feed.visibility = if (isEmptyUi) GONE else VISIBLE
 
+                    if (isEmptyUi) {
+                        binding.refresh.isRefreshing = state.isRefreshing
+                        adapter.submitList(emptyList())
+                        return@collect
+                    }
+
+                    val firstIdx = lm.findFirstVisibleItemPosition()
+                    val firstViewTop = (lm.findViewByPosition(firstIdx)?.top ?: 0)
+                    val wasAtTop = firstIdx == 0 && firstViewTop >= binding.feed.paddingTop
+
+                    binding.feed.suppressLayout(true)
                     adapter.submitList(newList) {
-                        if (wasAtTop) {
-                            lm.scrollToPositionWithOffset(0, binding.feed.paddingTop)
-                        } else {
-                            lm.scrollToPositionWithOffset(firstIdx, firstViewTop)
-                        }
+                        if (wasAtTop) lm.scrollToPositionWithOffset(0, binding.feed.paddingTop)
+                        else lm.scrollToPositionWithOffset(firstIdx, firstViewTop)
                         binding.feed.suppressLayout(false)
                     }
 
