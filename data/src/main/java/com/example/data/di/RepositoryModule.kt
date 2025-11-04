@@ -7,8 +7,10 @@ import com.example.domain.repository.ItemRepository
 import com.example.domain.usecase.ObserveUseCase
 import com.example.domain.usecase.RefreshUseCase
 import com.example.domain.usecase.UpdateCacheUseCase
+import com.example.domain.usecase.UpdateFavoriteUseCase
 import org.koin.dsl.module
 
+// TODO: подумать над структорой DI
 val RepositoryModule = module {
     single<LocalRepository> {
         LocalRepository(
@@ -39,5 +41,9 @@ val RepositoryModule = module {
 
     factory<UpdateCacheUseCase> {
         UpdateCacheUseCase(get())
+    }
+
+    factory<UpdateFavoriteUseCase> {
+        UpdateFavoriteUseCase(get())
     }
 }

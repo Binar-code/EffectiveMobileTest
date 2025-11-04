@@ -2,6 +2,7 @@ package com.example.data.local.room.dao
 
 import androidx.room.Dao
 import androidx.room.Query
+import androidx.room.Update
 import androidx.room.Upsert
 import com.example.data.local.dto.LocalCourseDto
 import com.example.data.local.room.entity.CourseEntity
@@ -14,4 +15,7 @@ interface CourseDao {
 
     @Upsert
     suspend fun upsertCourses(data: List<CourseEntity>)
+
+    @Query("UPDATE course SET has_like = :isFavorite WHERE public_id = :publicId")
+    suspend fun updateFavorite(publicId: Int, isFavorite: Boolean)
 }

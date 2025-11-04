@@ -1,5 +1,6 @@
 package com.example.data.network.repository
 
+import android.util.Log
 import com.example.data.network.dto.NetworkCourseDto
 import com.example.data.network.service.ApiService
 import retrofit2.HttpException
@@ -12,7 +13,7 @@ class NetworkRepository(
     suspend fun getCourses(): Result<List<NetworkCourseDto>> {
         try {
             val response = api.getCourses()
-            return Result.Success(response)
+            return Result.Success(response.courses)
         } catch (e: CancellationException) {
             throw e
         } catch (e: HttpException) {

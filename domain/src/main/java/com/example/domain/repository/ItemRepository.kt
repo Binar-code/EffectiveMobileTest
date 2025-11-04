@@ -10,4 +10,6 @@ interface ItemRepository {
     suspend fun refresh(): Result<List<Course>>
 
     suspend fun updateCache(data: List<Course>): Unit
+
+    suspend fun updateFavorite(publicId: Int, isFavorite: Boolean): Unit
 }

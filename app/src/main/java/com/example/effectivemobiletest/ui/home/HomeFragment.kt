@@ -1,7 +1,134 @@
 package com.example.effectivemobiletest.ui.home
 
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.effectivemobiletest.databinding.FragmentHomeBinding
+import com.example.effectivemobiletest.ui.home.feed.FeedItem
+import com.example.effectivemobiletest.ui.home.feed.HomeAdapter
+import com.example.effectivemobiletest.ui.home.feed.toCourseUi
+import kotlinx.coroutines.launch
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
+    private val args: HomeFragmentArgs by navArgs()
+    private var _binding: FragmentHomeBinding? = null
+    private val binding get() = _binding!!
+    private val vm: HomeViewModel by viewModel()
+    private val adapter by lazy {
+        HomeAdapter(
+            onFavClick = { item ->
+                vm.onFavClick(item.id)
+            }
+        )
+    }
 
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View = FragmentHomeBinding
+        .inflate(inflater, container, false)
+        .also { _binding = it }
+        .root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        when (args.mode) {
+            ScreenMode.HOME -> {
+                vm.setMode(ScreenMode.HOME)
+                binding.favLabel.visibility = GONE
+                binding.topBar.visibility = VISIBLE
+                binding.filter.visibility = VISIBLE
+            }
+
+            ScreenMode.FAVORITE -> {
+                vm.setMode(ScreenMode.FAVORITE)
+                binding.favLabel.visibility = VISIBLE
+                binding.topBar.visibility = GONE
+                binding.filter.visibility = GONE
+            }
+        }
+
+        binding.refresh.setOnRefreshListener {
+            vm.refreshNow()
+        }
+
+        binding.filter.setOnClickListener {
+            vm.sortByDate()
+        }
+
+        initRecycler()
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                vm.uiState.collect { state ->
+                    val lm = binding.feed.layoutManager as LinearLayoutManager
+
+                    val newList = decorate(state)
+                    val isEmptyUi = newList.isEmpty()
+
+                    val showFirstLoader = state.isLoading && isEmptyUi
+                    val showEmpty = isEmptyUi && !state.isLoading
+
+                    if (showFirstLoader) binding.loader.show() else binding.loader.hide()
+                    binding.emptyList.visibility = if (showEmpty) VISIBLE else GONE
+                    binding.feed.visibility = if (showEmpty) GONE else VISIBLE
+
+                    if (showEmpty) {
+                        binding.refresh.isRefreshing = state.isRefreshing
+                        adapter.submitList(emptyList())
+                        return@collect
+                    }
+
+                    val firstIdx = lm.findFirstVisibleItemPosition()
+                    val firstViewTop = (lm.findViewByPosition(firstIdx)?.top ?: 0)
+                    val wasAtTop = firstIdx == 0 && firstViewTop >= binding.feed.paddingTop
+
+                    binding.feed.suppressLayout(true)
+                    adapter.submitList(newList) {
+                        if (wasAtTop) lm.scrollToPositionWithOffset(0, binding.feed.paddingTop)
+                        else lm.scrollToPositionWithOffset(firstIdx, firstViewTop)
+                        binding.feed.suppressLayout(false)
+                    }
+
+                    binding.refresh.isRefreshing = state.isRefreshing
+                }
+            }
+        }
+    }
+
+    private fun initRecycler() {
+        binding.feed.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            setHasFixedSize(true)
+            itemAnimator = DefaultItemAnimator().apply { supportsChangeAnimations = false }
+            adapter = this@HomeFragment.adapter
+        }
+    }
+
+    private fun decorate(state: HomeUiState): List<FeedItem> {
+        val source = if (state.mode == ScreenMode.FAVORITE) {
+            state.items.filter { it.hasLike }
+        } else {
+            state.items
+        }
+        return source.map { it.toCourseUi() }
+    }
+
+    override fun onDestroyView() {
+        _binding = null
+        super.onDestroyView()
+    }
 }

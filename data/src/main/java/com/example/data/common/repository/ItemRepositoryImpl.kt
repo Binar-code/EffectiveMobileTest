@@ -33,4 +33,8 @@ class ItemRepositoryImpl(
 
     override suspend fun updateCache(data: List<Course>) =
         local.updateLocal(data.map { item -> item.toDto().toEntity()})
+
+    override suspend fun updateFavorite(publicId: Int, isFavorite: Boolean) =
+        local.updateFavorite(publicId, isFavorite)
+
 }
