@@ -10,40 +10,24 @@ import com.example.domain.usecase.UpdateCacheUseCase
 import com.example.domain.usecase.UpdateFavoriteUseCase
 import org.koin.dsl.module
 
-// TODO: подумать над структорой DI
-val RepositoryModule = module {
-    single<LocalRepository> {
-        LocalRepository(
-            get()
-        )
-    }
+val RepositoryModule =
+    module {
+        single<LocalRepository> {
+            LocalRepository(
+                get(),
+            )
+        }
 
-    single<NetworkRepository> {
-        NetworkRepository(
-            get()
-        )
-    }
+        single<NetworkRepository> {
+            NetworkRepository(
+                get(),
+            )
+        }
 
-    single<ItemRepository> {
-        ItemRepositoryImpl(
-            get(),
-            get()
-        )
+        single<ItemRepository> {
+            ItemRepositoryImpl(
+                get(),
+                get(),
+            )
+        }
     }
-
-    factory<ObserveUseCase> {
-        ObserveUseCase(get())
-    }
-
-    factory<RefreshUseCase> {
-        RefreshUseCase(get())
-    }
-
-    factory<UpdateCacheUseCase> {
-        UpdateCacheUseCase(get())
-    }
-
-    factory<UpdateFavoriteUseCase> {
-        UpdateFavoriteUseCase(get())
-    }
-}

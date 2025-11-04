@@ -4,12 +4,13 @@ import android.app.Application
 import com.example.data.di.DatabaseModule
 import com.example.data.di.RepositoryModule
 import com.example.data.di.RetrofitModule
+import com.example.data.di.UseCaseModule
 import com.example.effectivemobiletest.di.ViewModelModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 
-class App(): Application() {
+class App : Application() {
     override fun onCreate() {
         super.onCreate()
 
@@ -20,7 +21,8 @@ class App(): Application() {
                 RetrofitModule,
                 DatabaseModule,
                 RepositoryModule,
-                ViewModelModule
+                ViewModelModule,
+                UseCaseModule,
             )
         }
     }

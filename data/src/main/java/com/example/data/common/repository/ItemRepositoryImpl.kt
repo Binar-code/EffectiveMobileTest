@@ -14,8 +14,8 @@ import kotlinx.coroutines.flow.map
 
 class ItemRepositoryImpl(
     private val local: LocalRepository,
-    private val network: NetworkRepository
-): ItemRepository {
+    private val network: NetworkRepository,
+) : ItemRepository {
     override fun observe(): Flow<List<Course>> {
         val res = local.observe()
         return res.map { list -> list.map { item -> item.toLocalDto().toDomain() } }
@@ -24,17 +24,21 @@ class ItemRepositoryImpl(
     override suspend fun refresh(): Result<List<Course>> {
         return when (val res = network.getCourses()) {
             is Result.Success -> {
-                return Result.Success(res.data.map {item -> item.toDomain()})
+                return Result.Success(res.data.map { item -> item.toDomain() })
             }
 
             is Result.Error -> res
         }
     }
 
-    override suspend fun updateCache(data: List<Course>) =
-        local.updateLocal(data.map { item -> item.toDto().toEntity()})
+    override suspend fun updateCache(data: List<Course>) {
+        local.updateLocal(data.map { item -> item.toDto().toEntity() })
+    }
 
-    override suspend fun updateFavorite(publicId: Int, isFavorite: Boolean) =
+    override suspend fun updateFavorite(
+        publicId: Int,
+        isFavorite: Boolean,
+    ) {
         local.updateFavorite(publicId, isFavorite)
-
+    }
 }
