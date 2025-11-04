@@ -13,7 +13,6 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.effectivemobiletest.R
 import com.example.effectivemobiletest.databinding.FragmentHomeBinding
 import com.example.effectivemobiletest.ui.home.feed.FeedItem
 import com.example.effectivemobiletest.ui.home.feed.HomeAdapter
