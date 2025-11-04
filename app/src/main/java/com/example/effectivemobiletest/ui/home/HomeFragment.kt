@@ -24,7 +24,6 @@ class HomeFragment : Fragment() {
     // TODO: лоадер в первую загрузку
     // TODO: pull to refresh
     // TODO: заглушка для пустого избранного
-    // TODO: сортировка
     private val args: HomeFragmentArgs by navArgs()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -65,23 +64,36 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.filter.setOnClickListener {
+            vm.sortByDate()
+        }
 
         initRecycler()
 
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 vm.uiState.collect { state ->
-                    binding.feed.post {
-                        adapter.submitList(decorate(state))
-                    }
+                    val lm = binding.feed.layoutManager as LinearLayoutManager
 
-                    binding.filter.setOnClickListener {
-                        vm.sortByDate()
+                    val firstIdx = lm.findFirstVisibleItemPosition()
+                    val firstViewTop = (lm.findViewByPosition(firstIdx)?.top ?: 0)
+                    val wasAtTop = firstIdx == 0 && firstViewTop >= (binding.feed.paddingTop)
+
+                    val newList = decorate(state)
+
+                    binding.feed.suppressLayout(true)
+
+                    adapter.submitList(newList) {
+                        if (wasAtTop) {
+                            lm.scrollToPositionWithOffset(0, binding.feed.paddingTop)
+                        } else {
+                            lm.scrollToPositionWithOffset(firstIdx, firstViewTop)
+                        }
+                        binding.feed.suppressLayout(false)
                     }
                 }
             }
         }
-
     }
 
     private fun initRecycler() {
