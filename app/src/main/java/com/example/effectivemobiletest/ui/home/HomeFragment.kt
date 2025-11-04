@@ -13,6 +13,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.effectivemobiletest.R
 import com.example.effectivemobiletest.databinding.FragmentHomeBinding
 import com.example.effectivemobiletest.ui.home.feed.FeedItem
 import com.example.effectivemobiletest.ui.home.feed.HomeAdapter
@@ -22,7 +23,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     // TODO: лоадер в первую загрузку
-    // TODO: pull to refresh
     // TODO: заглушка для пустого избранного
     private val args: HomeFragmentArgs by navArgs()
     private var _binding: FragmentHomeBinding? = null
@@ -64,9 +64,15 @@ class HomeFragment : Fragment() {
             }
         }
 
+        binding.refresh.setOnRefreshListener {
+            vm.refreshNow()
+        }
+
         binding.filter.setOnClickListener {
             vm.sortByDate()
         }
+
+        binding.refresh.setOnRefreshListener { vm.refreshNow() }
 
         initRecycler()
 
@@ -91,6 +97,8 @@ class HomeFragment : Fragment() {
                         }
                         binding.feed.suppressLayout(false)
                     }
+
+                    binding.refresh.isRefreshing = state.isRefreshing
                 }
             }
         }

@@ -25,6 +25,7 @@ recyclerview = "1.4.0"
 blurview = "version-2.0.3"
 adapterdelegates4KotlinDsl = "4.3.2"
 adapterdelegates4KotlinDslViewbinding = "4.3.2"
+swiperefreshlayout = "1.1.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -51,6 +52,7 @@ androidx-recyclerview = { group = "androidx.recyclerview", name = "recyclerview"
 blurview = { group = "com.github.Dimezis", name = "BlurView", version.ref = "blurview" }
 adapterdelegates4-kotlin-dsl = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl", version.ref = "adapterdelegates4KotlinDsl" }
 adapterdelegates4-kotlin-dsl-viewbinding = { group = "com.hannesdorfmann", name = "adapterdelegates4-kotlin-dsl-viewbinding", version.ref = "adapterdelegates4KotlinDslViewbinding" }
+androidx-swiperefreshlayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swiperefreshlayout" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -61,6 +61,7 @@ dependencies {
     implementation(libs.blurview)
     implementation(libs.adapterdelegates4.kotlin.dsl)
     implementation(libs.adapterdelegates4.kotlin.dsl.viewbinding)
+    implementation(libs.androidx.swiperefreshlayout)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

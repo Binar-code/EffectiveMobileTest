@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class HomeViewModel(
     observe: ObserveUseCase,
@@ -27,46 +28,45 @@ class HomeViewModel(
     private val _uiState = MutableStateFlow(HomeUiState())
     val uiState = _uiState.asStateFlow()
 
-    @Volatile private var isRefreshing = false
+    @Volatile private var isRefreshingNow = false
 
     init {
         observe()
             .distinctUntilChanged()
-            .onEach { list ->
-                _uiState.update { it.copy(items = list, isLoading = false) }
-            }
-            .catch { e ->
-                _uiState.update { it.copy(isLoading = false, error = e.message) }
-            }
+            .onEach { list -> _uiState.update { it.copy(items = list, isLoading = false) } }
+            .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
             .launchIn(viewModelScope)
-
-        refreshNow()
-    }
-
-    private fun refreshNow() {
-        if (isRefreshing) return
-        isRefreshing = true
 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
-
             try {
-                when (val res = refresh()) {
-                    is Result.Success -> {
-                        updateCache(res.data)
-                    }
-                    is Result.Error.HttpError -> {
-                        _uiState.update { it.copy(error = res.msg) }
-                    }
-                    is Result.Error.Unknown -> {
-                        _uiState.update { it.copy(error = "Unknown error") }
-                    }
+                val res = withContext(Dispatchers.IO) { refresh() }
+                if (res is Result.Success) withContext(Dispatchers.IO) { updateCache(res.data) }
+            } finally {
+                _uiState.update { it.copy(isLoading = false) }
+            }
+        }
+    }
+
+    fun refreshNow() {
+        if (isRefreshingNow) return
+        isRefreshingNow = true
+
+        _uiState.update { it.copy(isRefreshing = true, error = null) }
+
+        viewModelScope.launch {
+            try {
+                val res = withContext(Dispatchers.IO) { refresh() }
+                when (res) {
+                    is Result.Success -> withContext(Dispatchers.IO) { updateCache(res.data) }
+                    is Result.Error.HttpError -> _uiState.update { it.copy(error = res.msg) }
+                    is Result.Error.Unknown   -> _uiState.update { it.copy(error = "Unknown error") }
                 }
             } catch (t: Throwable) {
                 _uiState.update { it.copy(error = t.message) }
             } finally {
-                isRefreshing = false
-                _uiState.update { it.copy(isLoading = false) }
+                isRefreshingNow = false
+                _uiState.update { it.copy(isRefreshing = false) }
             }
         }
     }
