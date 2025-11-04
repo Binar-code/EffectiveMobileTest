@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">EffectiveMobileTest</string>
+    <string name="login">Вход</string>
+    <string name="email">Email</string>
+    <string name="password">Пароль</string>
+    <string name="email_input_placeholder">example@gmail.com</string>
+    <string name="password_input_placeholder">Введите пароль</string>
+    <string name="no_account">Нет аккаунта?</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="forgot_password">Забыл пароль</string>
+    <string name="vk_auth">Авторизация через вк</string>
+    <string name="ok_auth">Авторизация через одноклассники</string>
+    <string name="home">Главная</string>
+    <string name="favorite">Избранное</string>
+    <string name="account">Аккаунт</string>
+    <string name="search_courses">Search courses...</string>
+    <string name="filter">Фильтр</string>
+    <string name="by_date">По дате добавления</string>
+    <string name="empty_list">Пока что здесь ничего нет</string>
+    <string name="placeholder_string">Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.</string>
 </resources>

@@ -2,4 +2,11 @@
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.android.library) apply false
+    id("com.google.devtools.ksp") version "2.2.21-2.0.4" apply false
+    alias(libs.plugins.detekt.plugin) apply false
+}
+
+rootProject.tasks.register("detektAll") {
+    dependsOn(rootProject.subprojects.map { "${it.path}:detekt" })
 }

@@ -7,6 +7,9 @@ pluginManagement {
                 includeGroupByRegex("androidx.*")
             }
         }
+        plugins {
+            id("androidx.navigation.safeargs.kotlin") version "2.9.5"
+        }
         mavenCentral()
         gradlePluginPortal()
     }
@@ -16,9 +19,11 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven(url = "https://jitpack.io")
     }
 }
 
 rootProject.name = "EffectiveMobileTest"
 include(":app")
- 
+include(":data")
+include(":domain")
