@@ -18,6 +18,4 @@
     <string name="by_date">По дате добавления</string>
     <string name="empty_list">Пока что здесь ничего нет</string>
     <string name="placeholder_string">Освойте backend-разработку и программирование на Java, фреймворки Spring и Maven, работу с базами данных и API. Создайте свой собственный проект, собрав портфолио и став востребованным специалистом для любой IT компании.</string>
-
-    <string name="hello_blank_fragment">Экран заглушка</string>
 </resources>

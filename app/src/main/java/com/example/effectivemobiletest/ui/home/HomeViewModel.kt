@@ -33,17 +33,24 @@ class HomeViewModel(
     init {
         observe()
             .distinctUntilChanged()
-            .onEach { list -> _uiState.update { it.copy(items = list, isLoading = false) } }
-            .catch { e -> _uiState.update { it.copy(isLoading = false, error = e.message) } }
+            .onEach { list -> _uiState.update { it.copy(items = list) } }
+            .catch { e -> _uiState.update { it.copy(error = e.message) } }
             .launchIn(viewModelScope)
 
         viewModelScope.launch {
             _uiState.update { it.copy(isLoading = true, error = null) }
             try {
-                val res = withContext(Dispatchers.IO) { refresh() }
-                if (res is Result.Success) withContext(Dispatchers.IO) { updateCache(res.data) }
+                when (val res = withContext(Dispatchers.IO) { refresh() }) {
+                    is Result.Success -> withContext(Dispatchers.IO) { updateCache(res.data) }
+                    is Result.Error.HttpError ->
+                        _uiState.update { it.copy(error = res.msg) }
+                    is Result.Error.Unknown ->
+                        _uiState.update { it.copy(error = "Unknown error") }
+                }
+            } catch (t: Throwable) {
+                _uiState.update { it.copy(error = t.message) }
             } finally {
-                _uiState.update { it.copy(isLoading = false) }
+                _uiState.update { it.copy(isLoading = false, hasLoadedOnce = true) }
             }
         }
     }
@@ -56,36 +63,35 @@ class HomeViewModel(
 
         viewModelScope.launch {
             try {
-                val res = withContext(Dispatchers.IO) { refresh() }
-                when (res) {
+                when (val res = withContext(Dispatchers.IO) { refresh() }) {
                     is Result.Success -> withContext(Dispatchers.IO) { updateCache(res.data) }
-                    is Result.Error.HttpError -> _uiState.update { it.copy(error = res.msg) }
-                    is Result.Error.Unknown   -> _uiState.update { it.copy(error = "Unknown error") }
+                    is Result.Error.HttpError ->
+                        _uiState.update { it.copy(error = res.msg) }
+                    is Result.Error.Unknown ->
+                        _uiState.update { it.copy(error = "Unknown error") }
                 }
             } catch (t: Throwable) {
                 _uiState.update { it.copy(error = t.message) }
             } finally {
                 isRefreshingNow = false
-                _uiState.update { it.copy(isRefreshing = false) }
+                _uiState.update { it.copy(isRefreshing = false, hasLoadedOnce = true) }
             }
         }
     }
 
     fun onFavClick(itemId: Int) {
-        var isFav = false
+        var wasFav = false
         _uiState.update { state ->
             val newList = state.items.map { item ->
                 if (item.id == itemId) {
-                    isFav = item.hasLike
+                    wasFav = item.hasLike
                     item.copy(hasLike = !item.hasLike)
-                }
-                else item
+                } else item
             }
             state.copy(items = newList)
         }
-
         viewModelScope.launch(Dispatchers.IO) {
-            updateFav(itemId, !isFav)
+            updateFav(itemId, !wasFav)
         }
     }
 
@@ -94,15 +100,13 @@ class HomeViewModel(
     }
 
     fun sortByDate() {
-        if (!uiState.value.sortDesc) {
-            _uiState.update { state ->
+        _uiState.update { state ->
+            if (!state.sortDesc) {
                 state.copy(
                     items = state.items.sortedByDescending { it.startDate },
                     sortDesc = true
                 )
-            }
-        } else {
-            _uiState.update { state ->
+            } else {
                 state.copy(
                     items = state.items.sortedBy { it.startDate },
                     sortDesc = false

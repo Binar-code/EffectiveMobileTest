@@ -22,7 +22,6 @@ import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
-    // TODO: лоадер в первую загрузку
     private val args: HomeFragmentArgs by navArgs()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -71,8 +70,6 @@ class HomeFragment : Fragment() {
             vm.sortByDate()
         }
 
-        binding.refresh.setOnRefreshListener { vm.refreshNow() }
-
         initRecycler()
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -81,12 +78,16 @@ class HomeFragment : Fragment() {
                     val lm = binding.feed.layoutManager as LinearLayoutManager
 
                     val newList = decorate(state)
-
                     val isEmptyUi = newList.isEmpty()
-                    binding.emptyList.visibility = if (isEmptyUi) VISIBLE else GONE
-                    binding.feed.visibility = if (isEmptyUi) GONE else VISIBLE
 
-                    if (isEmptyUi) {
+                    val showFirstLoader = state.isLoading && isEmptyUi
+                    val showEmpty = isEmptyUi && !state.isLoading
+
+                    if (showFirstLoader) binding.loader.show() else binding.loader.hide()
+                    binding.emptyList.visibility = if (showEmpty) VISIBLE else GONE
+                    binding.feed.visibility = if (showEmpty) GONE else VISIBLE
+
+                    if (showEmpty) {
                         binding.refresh.isRefreshing = state.isRefreshing
                         adapter.submitList(emptyList())
                         return@collect
